@@ -7,7 +7,7 @@ VERSION=v1.24.9
 SOURCE_URL=https://distro.eks.amazonaws.com/kubernetes-${RELEASE_BRANCH}/releases/${RELEASE}/artifacts/kubernetes/${VERSION}/kubernetes-src.tar.gz
 GIT_SHA := $(shell echo `git rev-parse --verify HEAD^{commit}`)
 CURRENT_REPO_NAME=$(shell echo `git config --get remote.origin.url | grep -Po "(?<=git@github\.com:)(.*?)(?=.git)"`)
-IMAGE_NAME=ghcr.io/${CURRENT_REPO_NAME}
+IMAGE_NAME=ghcr.io/jasonwmiller/ltkind-eks-d
 TEST_IMAGE=${IMAGE_NAME}:${GIT_SHA}
 
 default: update-src build-image test-image
