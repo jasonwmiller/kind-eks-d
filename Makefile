@@ -1,8 +1,13 @@
-RELEASE_BRANCH = 1-21
-VERSION := v$(subst -,.,$(RELEASE_BRANCH)).2
-SOURCE_URL = https://distro.eks.amazonaws.com/kubernetes-${RELEASE_BRANCH}/releases/4/artifacts/kubernetes/${VERSION}/kubernetes-src.tar.gz
+# Update these variables to match the Kubernetes release you want to build
+# To determine the values look at https://distro.eks.amazonaws.com/#release-channels
+# grab the 2nd yaml and find Kubernetes source tarball section in the yaml.
+RELEASE_BRANCH = 1-24
+RELEASE=8
+VERSION=v1.24.9
+https://distro.eks.amazonaws.com/kubernetes-1-24/releases/8/artifacts/kubernetes/v1.24.9/kubernetes-src.tar.gz
+SOURCE_URL = https://distro.eks.amazonaws.com/kubernetes-${RELEASE_BRANCH}/releases/${RELEASE}/artifacts/kubernetes/${VERSION}/kubernetes-src.tar.gz
 GIT_SHA := $(shell echo `git rev-parse --verify HEAD^{commit}`)
-IMAGE_NAME = ghcr.io/kbst/kind-eks-d
+IMAGE_NAME = ghcr.io/jasonwmiller/kind-eks-d
 TEST_IMAGE = ${IMAGE_NAME}:${GIT_SHA}
 
 default: update-src build-image test-image
