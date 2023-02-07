@@ -4,10 +4,11 @@
 RELEASE_BRANCH = 1-24
 RELEASE=8
 VERSION=v1.24.9
-SOURCE_URL = https://distro.eks.amazonaws.com/kubernetes-${RELEASE_BRANCH}/releases/${RELEASE}/artifacts/kubernetes/${VERSION}/kubernetes-src.tar.gz
+SOURCE_URL=https://distro.eks.amazonaws.com/kubernetes-${RELEASE_BRANCH}/releases/${RELEASE}/artifacts/kubernetes/${VERSION}/kubernetes-src.tar.gz
 GIT_SHA := $(shell echo `git rev-parse --verify HEAD^{commit}`)
-IMAGE_NAME = ghcr.io/jasonwmiller/kind-eks-d
-TEST_IMAGE = ${IMAGE_NAME}:${GIT_SHA}
+CURRENT_REPO_NAME=$(shell echo `git config --get remote.origin.url | grep -Po "(?<=git@github\.com:)(.*?)(?=.git)"`)
+IMAGE_NAME=ghcr.io/${CURRENT_REPO_NAME}
+TEST_IMAGE=${IMAGE_NAME}:${GIT_SHA}
 
 default: update-src build-image test-image
 
