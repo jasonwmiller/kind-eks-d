@@ -4,7 +4,6 @@
 RELEASE_BRANCH = 1-24
 RELEASE=8
 VERSION=v1.24.9
-https://distro.eks.amazonaws.com/kubernetes-1-24/releases/8/artifacts/kubernetes/v1.24.9/kubernetes-src.tar.gz
 SOURCE_URL = https://distro.eks.amazonaws.com/kubernetes-${RELEASE_BRANCH}/releases/${RELEASE}/artifacts/kubernetes/${VERSION}/kubernetes-src.tar.gz
 GIT_SHA := $(shell echo `git rev-parse --verify HEAD^{commit}`)
 IMAGE_NAME = ghcr.io/jasonwmiller/kind-eks-d
@@ -22,7 +21,7 @@ update-src:
 build-image:
 	kind --version
 	cd kubernetes-src; \
-	KUBE_GIT_VERSION=${VERSION} kind build node-image --image ${TEST_IMAGE} --kube-root .
+	KUBE_GIT_VERSION=${VERSION} kind build node-image --image ${TEST_IMAGE} .
 
 test-image:
 	kind create cluster --name eks-d-test --image ${TEST_IMAGE}
