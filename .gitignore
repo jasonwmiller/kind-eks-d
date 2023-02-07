@@ -1,2 +1,2 @@
 .env
-kubernetes-src
+kubernetes-src/*
